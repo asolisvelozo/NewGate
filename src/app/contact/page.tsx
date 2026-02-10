@@ -1,8 +1,7 @@
-// pages/contact.tsx
-// Update the import path to match the actual location and filename of ContactForm
+
 import ContactForm from "@/components/contacto";
 
-import type { NextPage } from 'next'; // Opcional, pero buena práctica
+import type { NextPage } from 'next';
 
 const ContactPage: NextPage = () => {
   return (

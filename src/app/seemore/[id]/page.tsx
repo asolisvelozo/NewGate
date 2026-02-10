@@ -20,7 +20,6 @@ function ImageCarousel({ images }: { images: string[] }) {
 
   return (
     <div className="relative w-full">
-      {/* Imagen actual */}
       <div className="aspect-[4/3] bg-gray-800 rounded-lg overflow-hidden">
         <img
           src={images[currentIndex]}
@@ -29,7 +28,6 @@ function ImageCarousel({ images }: { images: string[] }) {
         />
       </div>
 
-      {/* Controles de navegación */}
       {images.length > 1 && (
         <>
           <button
@@ -46,7 +44,6 @@ function ImageCarousel({ images }: { images: string[] }) {
             <ChevronRight size={20} />
           </button>
 
-          {/* Indicador */}
           <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/70 text-white px-3 py-1 rounded text-sm">
             {currentIndex + 1} / {images.length}
           </div>
@@ -91,11 +88,10 @@ export default function GuitarraDetallePage() {
     fetchGuitarra();
   }, [id]);
 
-  // Función para consultar precio por email
   const consultarPrecio = () => {
     const subject = `Consulta por guitarra: ${guitarra?.nombre}`;
     const body = `Hola!\n\nEstoy interesado en la guitarra ${guitarra?.nombre} que vi en su sitio web.\n\nPor favor, podrían enviarme más información y el precio final?\n\nGracias!`;
-    const email = 'ventas@tutienda.com'; // Reemplaza con tu email
+    const email = 'ventas@tutienda.com'; 
     
     const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailtoLink;
@@ -116,7 +112,6 @@ export default function GuitarraDetallePage() {
       <div className="min-h-screen text-white pt-16">
         <div className="container mx-auto px-4 py-8">
           
-          {/* Header móvil */}
           <div className="lg:hidden mb-6">
             <h1 className="text-2xl font-bold mb-2">{guitarra.nombre}</h1>
             <div className="flex items-center justify-between mb-4">
@@ -133,9 +128,7 @@ export default function GuitarraDetallePage() {
 
           <div className="flex flex-col lg:flex-row gap-8">
             
-            {/* Columna izquierda - Imágenes */}
             <div className="lg:flex-1 space-y-6">
-              {/* Imagen principal */}
               <div className="bg-gray-800/80 rounded-xl p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-semibold mb-4 text-gray-300">Vista Principal</h3>
                 <img
@@ -145,7 +138,6 @@ export default function GuitarraDetallePage() {
                 />
               </div>
 
-              {/* Carousel de especificaciones */}
               {guitarra.especificaciones_guitarra && guitarra.especificaciones_guitarra.length > 0 && (
                 <div className="bg-gray-800/80 rounded-xl p-4 backdrop-blur-sm">
                   <h3 className="text-lg font-semibold mb-4 text-gray-300">Galería de Especificaciones</h3>
@@ -154,11 +146,9 @@ export default function GuitarraDetallePage() {
               )}
             </div>
 
-            {/* Columna derecha - Especificaciones */}
             <div className="lg:flex-1 lg:sticky lg:top-24 lg:self-start">
               <div className="bg-gray-800/80 rounded-xl p-6 backdrop-blur-sm">
                 
-                {/* Header desktop */}
                 <div className="hidden lg:block mb-6">
                   <h1 className="text-3xl font-bold mb-3">{guitarra.nombre}</h1>
                   <div className="flex items-center justify-between">
@@ -173,7 +163,6 @@ export default function GuitarraDetallePage() {
                   </div>
                 </div>
 
-                {/* Especificaciones técnicas */}
                 <div>
                   <h2 className="text-xl font-semibold mb-4 text-gray-300">Especificaciones Técnicas</h2>
                   <div className="grid gap-3">

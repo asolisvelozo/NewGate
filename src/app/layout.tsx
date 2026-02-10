@@ -29,13 +29,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         className={`min-h-screen flex flex-col text-white bg-cover bg-center`}
         style={{ backgroundImage: "url('/wood.jpg')" }}
       >
-        {/* Navbar fija arriba */}
         <Navbar />
 
-        {/* Contenido de cada página */}
         <main className="flex-grow">{children}</main>
 
-        {/* Footer fijo abajo */}
         <Footer />
       </body>
     </html>

@@ -7,7 +7,6 @@ export default function Shop() {
     <>
 
       <Container>
-        {/* Sección del título */}
         <div className="text-center pt-20">
           <h1
             className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white tracking-wider mb-8 opacity-0 animate-fadeInUp"
@@ -17,7 +16,6 @@ export default function Shop() {
           </h1>
         </div>
 
-        {/* Carousel animado */}
         <div
           className="flex justify-center opacity-0 animate-fadeInUp"
           style={{ animationDelay: "1s", animationFillMode: "forwards" }}
@@ -26,7 +24,6 @@ export default function Shop() {
         </div>
       </Container>
 
-      {/* Animaciones */}
       <style jsx>{`
         @keyframes fadeInUp {
           from {

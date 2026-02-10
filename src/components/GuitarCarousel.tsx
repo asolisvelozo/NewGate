@@ -34,12 +34,10 @@ export default function GuitarCarousel() {
     fetchGuitars();
   }, []);
 
-  // Función para ir a la siguiente guitarra
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % guitars.length);
   };
 
-  // Función para ir a la anterior
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev - 1 + guitars.length) % guitars.length);
   };
@@ -66,14 +64,12 @@ export default function GuitarCarousel() {
     
     <div className="relative w-full sm:w-4/5 md:w-3/5 max-w-[900px] h-[400px] sm:h-[450px] bg-gray-900 group mx-auto shadow-lg rounded-2xl overflow-hidden border border-gray-700">
 
-      {/* Imagen */}
       <img
         src={currentGuitar.imagen_url}
         alt={currentGuitar.nombre}
         className="w-full h-full object-cover"
       />
       
-      {/* Flecha Izquierda */}
       <button
         onClick={prevSlide}
         className="absolute z-20 left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white p-3 rounded-full transition"
@@ -81,7 +77,6 @@ export default function GuitarCarousel() {
         <ChevronLeft size={32} />
       </button>
 
-      {/* Flecha Derecha */}
       <button
         onClick={nextSlide}
         className="absolute z-20 right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white p-3 rounded-full transition"
@@ -89,7 +84,6 @@ export default function GuitarCarousel() {
         <ChevronRight size={32} />
       </button>
       
-      {/* Info sobre la imagen */}
       <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-6">
         <h2 className="text-3xl font-bold">{currentGuitar.nombre}</h2>
         <p className="text-lg mt-2">{currentGuitar.descripcion}</p>
@@ -111,7 +105,6 @@ export default function GuitarCarousel() {
         </div>  
       </div>
 
-      {/* Indicador (1/3, 2/3, etc) */}
       <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded">
         {currentIndex + 1} / {guitars.length}
       </div>
