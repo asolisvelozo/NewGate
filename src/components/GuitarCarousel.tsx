@@ -1,7 +1,4 @@
-'use client';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Guitar {
   id: number;
@@ -12,101 +9,67 @@ interface Guitar {
   disponible: boolean;
 }
 
-export default function GuitarCarousel() {
-  const [guitars, setGuitars] = useState<Guitar[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchGuitars() {
-      try {
-        const response = await fetch('/api/guitars');
-        const data = await response.json();
-        console.log('Guitarras:', data);
-        setGuitars(data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error:', error);
-        setLoading(false);
-      }
-    }
-    
-    fetchGuitars();
-  }, []);
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % guitars.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + guitars.length) % guitars.length);
-  };
-
-  if (loading) {
+export default function GuitarCarousel({ initialGuitars }: { initialGuitars: Guitar[] }) {
+  if (!initialGuitars || initialGuitars.length === 0) {
     return (
-      <div className="relative w-full sm:w-4/5 md:w-3/5 max-w-[900px] h-[400px] sm:h-[450px] bg-gray-900 group mx-auto shadow-lg rounded-2xl overflow-hidden border border-gray-700">
-        <p className="text-white">Loading guitarras...</p>
+      // Contenedor transparente, respeta tu fondo global
+      <div className="w-full py-20 flex justify-center">
+        <div className="bg-gray-900 border border-gray-700 rounded-2xl p-8 text-center shadow-lg w-full sm:w-4/5 md:w-3/5 max-w-[900px]">
+          <p className="text-white">There's no guitars in stock</p>
+        </div>
       </div>
     );
   }
-
-  if (guitars.length === 0) {
-    return (
-      <div className="relative w-full sm:w-4/5 md:w-3/5 max-w-[900px] h-[400px] sm:h-[450px] bg-gray-900 group mx-auto shadow-lg rounded-2xl overflow-hidden border border-gray-700">
-        <p className="text-white">There´s no guitars in stock</p>
-      </div>
-    );
-  }
-
-  const currentGuitar = guitars[currentIndex];
 
   return (
-    
-    <div className="relative w-full sm:w-4/5 md:w-3/5 max-w-[900px] h-[400px] sm:h-[450px] bg-gray-900 group mx-auto shadow-lg rounded-2xl overflow-hidden border border-gray-700">
-
-      <img
-        src={currentGuitar.imagen_url}
-        alt={currentGuitar.nombre}
-        className="w-full h-full object-cover"
-      />
+    // Wrapper principal sin color de fondo (transparente) para que se vea tu textura
+    <div className="w-full max-w-[1200px] mx-auto px-4 py-8">
       
-      <button
-        onClick={prevSlide}
-        className="absolute z-20 left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white p-3 rounded-full transition"
-      >
-        <ChevronLeft size={32} />
-      </button>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        {initialGuitars.map((guitar, index) => (
+          // Tarjetas con el mismo fondo exacto que tenía tu carrusel
+          <div 
+            key={guitar.id} 
+            className="bg-gray-900 border border-gray-700 rounded-2xl overflow-hidden shadow-lg flex flex-col group opacity-0 animate-fadeInUp"
+            style={{ animationDelay: `${index * 0.1}s` }}
+          >
+            
+            <div className="w-full h-[250px] overflow-hidden bg-black">
+              <img
+                src={guitar.imagen_url}
+                alt={guitar.nombre}
+                decoding="async"
+                className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+              />
+            </div>
 
-      <button
-        onClick={nextSlide}
-        className="absolute z-20 right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white p-3 rounded-full transition"
-      >
-        <ChevronRight size={32} />
-      </button>
-      
-      <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-6">
-        <h2 className="text-3xl font-bold">{currentGuitar.nombre}</h2>
-        <p className="text-lg mt-2">{currentGuitar.descripcion}</p>
-        {currentGuitar.precio && (
-          <>
-            <p className="text-2xl font-bold mt-2">
-              ${parseFloat(currentGuitar.precio).toLocaleString()}
-            </p>
-          </>
-        )}
+            <div className="p-6 flex flex-col flex-grow">
+              <h2 className="text-2xl font-bold text-white mb-2">{guitar.nombre}</h2>
+              
+              <p className="text-lg text-gray-300 mb-6 line-clamp-2">
+                {guitar.descripcion}
+              </p>
+              
+              <div className="mt-auto flex items-center justify-between">
+                {guitar.precio && (
+                  <p className="text-2xl font-bold text-white">
+                    ${parseFloat(guitar.precio).toLocaleString()}
+                  </p>
+                )}
+                
+                <Link
+                  href={`/seemore/${guitar.id}`}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition"
+                >
+                  See more
+                </Link>
+              </div>
+            </div>
 
-        <div className="flex justify-end mt-3">
-          <Link
-            href={`/seemore/${currentGuitar.id}`}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition"
-            >
-            See more
-          </Link>
-        </div>  
-      </div>
+          </div>
+        ))}
 
-      <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded">
-        {currentIndex + 1} / {guitars.length}
       </div>
     </div>
   );

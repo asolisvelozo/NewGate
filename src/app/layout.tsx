@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google"; // Importamos Inter
 import "./globals.css";
 import { ReactNode } from "react";
-import { Navbar  } from "@/components/NavBar";
-import  Footer  from "@/components/Footer";
+import { Navbar } from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Configuramos Inter
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -21,12 +16,11 @@ export const metadata: Metadata = {
   description: "Sitio oficial",
 };
 
-
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body
-        className={`min-h-screen flex flex-col text-white bg-cover bg-center`}
+        className={`${inter.className} antialiased min-h-screen flex flex-col text-white bg-cover bg-center bg-fixed`}
         style={{ backgroundImage: "url('/wood.jpg')" }}
       >
         <Navbar />

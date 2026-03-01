@@ -30,7 +30,6 @@ export function Navbar() {
       href: "/series",
       submenu: [
         { name: "The Half Light Series", href: "/series/half-light" },
-        { name: "The Album Series", href: "/series/album" },
       ],
     },
     { name: "TIENDA", href: "/shop" },

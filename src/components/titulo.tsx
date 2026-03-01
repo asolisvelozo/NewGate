@@ -1,80 +1,69 @@
 'use client'
 import React from "react";
-import Image from "next/image";
 
 type HeroSectionProps = {
   logoSrc: string;
-  tagline?: string;
   children?: React.ReactNode;
 };
 
 export default function Titulo({ 
   logoSrc,
-  tagline = "Handcrafted Electric Guitars",
   children
 }: HeroSectionProps) {
   return (
-    <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden"> 
+    <div className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden"> 
       
-      {/* Degradado muy suave */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20 pointer-events-none" />
+      {/* 1. EL SPOTLIGHT */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.85)_100%)] pointer-events-none z-0" />
       
-      {/* CONTENEDOR PRINCIPAL
-         -mt-24 sm:-mt-32: Esto sube el logo para que encaje perfecto en la "X" del fondo
-      */}
-      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center -mt-24 sm:-mt-32">
+      {/* 2. EL BACKLIGHT (Brillo azul) */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 md:w-96 md:h-96 bg-blue-600/15 blur-[80px] rounded-full pointer-events-none z-0 opacity-0 animate-fadeInUp delay-200" />
+
+      {/* CONTENEDOR PRINCIPAL - Centrado perfecto en pantalla */}
+      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
         
-          {/* LOGO GIGANTE */}
-          <div className="relative w-full max-w-5xl h-48 sm:h-72 md:h-96 lg:h-[30rem] mb-4 opacity-0 animate-fadeInUp" 
-               style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
-            <Image 
+        {/* BLOQUE DE LOGOS AGRUPADOS Y PEGADOS */}
+        <div className="flex flex-col items-center justify-center w-full z-10 relative">
+          
+          {/* 1. LOGO PRINCIPAL (NewGate) */}
+          <div className="relative w-full flex justify-center opacity-0 animate-fadeInUp delay-200 z-30">
+            <img 
               src={logoSrc}
               alt="NewGate Guitars Logo"
-              fill
-              className="object-contain" 
-              priority
+              className="w-[90%] sm:w-[80%] md:w-[600px] lg:w-[700px] h-auto drop-shadow-[0_0_15px_rgba(255,255,255,0.05)]" 
             />
           </div>
           
-          {/* LÍNEAS SEPARADORAS */}
-          <div className="flex items-center justify-center gap-4 mb-6 opacity-0 animate-fadeInUp" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
-            <div className="h-px w-12 sm:w-24 bg-white/80" />
-            <div className="w-2 h-2 bg-white rotate-45" />
-            <div className="h-px w-12 sm:w-24 bg-white/80" />
+          {/* 2. IMAGEN: Concept-Driven (Un poquitín más grande) */}
+          <div className="relative w-full flex justify-center opacity-0 animate-fadeInUp delay-500 z-20 -mt-6 md:-mt-10 lg:-mt-12">
+            <img 
+              src="/concept.png" 
+              alt="Concept-Driven Instruments"
+              // Aumentado a 400px en md y 450px en lg
+              className="w-[80%] sm:w-[60%] md:w-[400px] lg:w-[450px] h-auto drop-shadow-md" 
+            />
           </div>
-          
-          {/* TAGLINE */}
-          {tagline && (
-            <p className="text-base sm:text-xl md:text-2xl text-white font-light italic tracking-widest mb-8 opacity-0 animate-fadeInUp" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
-              {tagline}
-            </p>
-          )}
 
-        {/* TEXTO EXTRA (Si le pasas algo como hijo) */}
+          {/* 3. IMAGEN: Worldwide Shipping (Un poquitín más grande) */}
+          <div className="relative w-full flex justify-center opacity-0 animate-fadeInUp delay-700 z-10 -mt-2 md:-mt-6 lg:-mt-8">
+            <img 
+              src="/shipping.png" 
+              alt="Worldwide Shipping"
+              // Aumentado a 250px en md y 300px en lg
+              className="w-[55%] sm:w-[45%] md:w-[250px] lg:w-[300px] h-auto drop-shadow-md" 
+            />
+          </div>
+
+        </div> {/* FIN BLOQUE AGRUPADO */}
+
+        {/* BOTONES / HIJOS */}
         {children && (
-          <div className="flex justify-center opacity-0 animate-fadeInUp"
-               style={{ animationDelay: '1s', animationFillMode: 'forwards' }}>
+          <div className="flex justify-center mt-10 md:mt-12 opacity-0 animate-fadeInUp delay-1000 relative z-20">
             {children}
           </div>
         )}
       </div>
 
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        .animate-fadeInUp {
-          animation: fadeInUp 0.8s ease-out;
-        }
-      `}</style>
     </div>
   );
 }

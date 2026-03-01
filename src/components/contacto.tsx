@@ -1,9 +1,7 @@
-// components/ContactForm.tsx
 "use client"
 
 import React, { useState } from 'react';
 
-// Definimos los tipos para el estado del formulario y el resultado
 type FormState = {
   name: string;
   email: string;
@@ -62,12 +60,11 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <section className="py-12 px-4">
-   
+    <section className="py-12 px-4 overflow-hidden">
         <div className="md:w-2/3 space-y-6 mx-auto">
             
             <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
+                <div className="opacity-0 animate-fadeInUp">
                     <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">NOMBRE</label>
                     <input
                         type="text"
@@ -76,12 +73,12 @@ const ContactForm: React.FC = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full p-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent text-white"
+                        className="w-full p-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent text-white transition-colors"
                         placeholder="Tu nombre"
                     />
                 </div>
 
-                <div>
+                <div className="opacity-0 animate-fadeInUp delay-200">
                     <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">EMAIL</label>
                     <input
                         type="email"
@@ -90,12 +87,12 @@ const ContactForm: React.FC = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full p-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent text-white"
+                        className="w-full p-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent text-white transition-colors"
                         placeholder="tu@email.com"
                     />
                 </div>
 
-                <div>
+                <div className="opacity-0 animate-fadeInUp delay-200">
                     <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-1">TELÉFONO</label>
                     <input
                         type="tel"
@@ -103,12 +100,12 @@ const ContactForm: React.FC = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full p-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent text-white"
+                        className="w-full p-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent text-white transition-colors"
                         placeholder="Tu teléfono (opcional)"
                     />
                 </div>
                 
-                <div>
+                <div className="opacity-0 animate-fadeInUp delay-500">
                     <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">MENSAJE</label>
                     <textarea
                         id="message"
@@ -117,25 +114,29 @@ const ContactForm: React.FC = () => {
                         value={formData.message}
                         onChange={handleChange}
                         required
-                        className="w-full p-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent text-white"
+                        className="w-full p-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent text-white transition-colors resize-none"
                         placeholder="Escribe tu mensaje aquí..."
                     ></textarea>
                 </div>
                 
-                <button
-                    type="submit"
-                    disabled={formResult.status === 'loading'}
-                    className="w-full py-3 px-6 bg-white text-gray-900 font-semibold rounded-md hover:bg-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900 disabled:bg-gray-400 disabled:cursor-not-allowed"
-                >
-                    {formResult.status === 'loading' ? 'Enviando...' : 'Enviar'}
-                </button>
+                <div className="opacity-0 animate-fadeInUp delay-1000">
+                    <button
+                        type="submit"
+                        disabled={formResult.status === 'loading'}
+                        className="w-full py-3 px-6 bg-white text-gray-900 font-semibold rounded-md hover:bg-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    >
+                        {formResult.status === 'loading' ? 'Enviando...' : 'Enviar'}
+                    </button>
 
-                {formResult.status === 'success' && (
-                    <p className="text-green-400 text-center">{formResult.message}</p>
-                )}
-                {formResult.status === 'error' && (
-                    <p className="text-red-400 text-center">{formResult.message}</p>
-                )}
+                    <div className="h-6 mt-4">
+                        {formResult.status === 'success' && (
+                            <p className="text-green-400 text-center text-sm font-medium">{formResult.message}</p>
+                        )}
+                        {formResult.status === 'error' && (
+                            <p className="text-red-400 text-center text-sm font-medium">{formResult.message}</p>
+                        )}
+                    </div>
+                </div>
             </form>
         </div>
     </section>
