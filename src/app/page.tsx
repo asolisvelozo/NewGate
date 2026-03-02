@@ -5,7 +5,7 @@ export default function Home() {
     <>
     
         <Titulo
-          logoSrc="/lOGO-SOMBREADO.png" 
+          logoSrc="/LOGO-SOMBREADO.PNG" 
         >
         </Titulo>
     </>

@@ -31,7 +31,7 @@ export default function Titulo({
           
           <div className="relative w-full flex justify-center opacity-0 animate-fadeInUp delay-500 z-20 -mt-6 md:-mt-10 lg:-mt-12">
             <img 
-              src="/concept.png" 
+              src="/concept.PNG" 
               alt="Concept-Driven Instruments"
               className="w-[80%] sm:w-[60%] md:w-[400px] lg:w-[450px] h-auto drop-shadow-md" 
             />
@@ -39,7 +39,7 @@ export default function Titulo({
 
           <div className="relative w-full flex justify-center opacity-0 animate-fadeInUp delay-700 z-10 -mt-2 md:-mt-6 lg:-mt-8">
             <img 
-              src="/shipping.png" 
+              src="/shipping.PNG" 
               alt="Worldwide Shipping"
               className="w-[55%] sm:w-[45%] md:w-[250px] lg:w-[300px] h-auto drop-shadow-md" 
             />
