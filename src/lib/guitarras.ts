@@ -1,5 +1,5 @@
 import pool from './db'; 
-
+import { revalidatePath } from 'next/cache';
 export async function getGuitarsAdmin() {
   const res = await pool.query(`
     SELECT g.id, g.nombre, g.precio, g.disponible, g.tipo, g.imagen_url, e.detalle 
@@ -82,6 +82,8 @@ export async function deleteInstrument(id: number) {
   } finally {
     client.release();
   }
+
+  revalidatePath('/tienda');
 }
 
 export async function toggleStock(id: number, estadoActual: boolean) {
