@@ -1,9 +1,8 @@
 import { Container } from "@/components/container";
 import GuitarCarousel from "@/components/GuitarCarousel";
-import { getGuitarsOK } from "@/lib/db";
-
+import { getBajos } from "@/lib/db";
 export default async function Shop() {
-  const guitars = await getGuitarsOK();
+  const guitars = await getBajos();
 
   return (
     <Container>

@@ -1,7 +1,6 @@
 
 import { getGuitarById } from '@/lib/guitarras';
 import InstrumentForm from './InstrumentForm';
-
 // Le decimos a TypeScript que params es una Promesa
 export default async function EditorPage({ params }: { params: Promise<{ id: string }> }) {
   // Ahora "esperamos" los params antes de sacar el id

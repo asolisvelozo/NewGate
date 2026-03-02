@@ -2,7 +2,6 @@ import { getGuitarsAdmin } from '@/lib/guitarras';
 import { actionToggleStock, logoutAction } from '@/app/admin/actions'; // <-- IMPORTAMOS LOGOUT
 import Link from 'next/link';
 import BotonBorrar from '@/components/BotonBorrar';
-
 export default async function AdminDashboard() {
   const instrumentos = await getGuitarsAdmin();
 
