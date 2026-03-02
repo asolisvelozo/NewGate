@@ -6,7 +6,6 @@ export default function BotonBorrar({ id, nombre }: { id: number, nombre: string
   const [borrando, setBorrando] = useState(false);
 
   const handleBorrar = async () => {
-    // Acá está la advertencia que querías jaja
     if (confirm(`¿Estás seguro de que querés borrar definitivamente "${nombre}"? Esta acción no se puede deshacer.`)) {
       setBorrando(true);
       try {

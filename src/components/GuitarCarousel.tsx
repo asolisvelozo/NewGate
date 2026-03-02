@@ -12,7 +12,6 @@ interface Guitar {
 export default function GuitarCarousel({ initialGuitars }: { initialGuitars: Guitar[] }) {
   if (!initialGuitars || initialGuitars.length === 0) {
     return (
-      // Contenedor transparente, respeta tu fondo global
       <div className="w-full py-20 flex justify-center">
         <div className="bg-gray-900 border border-gray-700 rounded-2xl p-8 text-center shadow-lg w-full sm:w-4/5 md:w-3/5 max-w-[900px]">
           <p className="text-white">There's no guitars in stock</p>
@@ -22,13 +21,11 @@ export default function GuitarCarousel({ initialGuitars }: { initialGuitars: Gui
   }
 
   return (
-    // Wrapper principal sin color de fondo (transparente) para que se vea tu textura
     <div className="w-full max-w-[1200px] mx-auto px-4 py-8">
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         
         {initialGuitars.map((guitar, index) => (
-          // Tarjetas con el mismo fondo exacto que tenía tu carrusel
           <div 
             key={guitar.id} 
             className="bg-gray-900 border border-gray-700 rounded-2xl overflow-hidden shadow-lg flex flex-col group opacity-0 animate-fadeInUp"

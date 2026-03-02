@@ -4,15 +4,12 @@ import { Mail, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function GuitarraDetalleContent({ guitarra }: { guitarra: any }) {
-  // 1. Unificamos la foto principal con el array de fotos que ahora sí viene del LIB
   const fotosExtra = Array.isArray(guitarra.fotos) ? guitarra.fotos : [];
   
-  // Limpiamos cualquier valor nulo o vacío para que no rompa el carrusel
   const todasLasFotos = [guitarra.imagen_url, ...fotosExtra].filter(
     (f) => f && f !== 'null' && f !== '[null]' && f.trim() !== ''
   );
 
-  // 2. Estado para manejar la foto que se muestra
   const [index, setIndex] = useState(0);
 
   const anterior = () => setIndex(index === 0 ? todasLasFotos.length - 1 : index - 1);
@@ -22,7 +19,6 @@ export default function GuitarraDetalleContent({ guitarra }: { guitarra: any }) 
     <div className="min-h-screen text-white pt-16 overflow-hidden">
       <div className="container mx-auto px-4 py-8">
         
-        {/* Cabecera Móvil (Tu diseño original) */}
         <div className="lg:hidden mb-6 opacity-0 animate-fadeInUp delay-200">
           <h1 className="text-2xl font-bold mb-2">{guitarra.nombre}</h1>
           <div className="flex items-center justify-between mb-4">
@@ -39,7 +35,6 @@ export default function GuitarraDetalleContent({ guitarra }: { guitarra: any }) 
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="lg:flex-1 space-y-6">
             
-            {/* VISTA PRINCIPAL CON CAROUSEL */}
             <div className="bg-gray-800 rounded-xl p-4 shadow-lg opacity-0 animate-fadeInUp">
               <h3 className="text-lg font-semibold mb-4 text-gray-300">Galería del Instrumento</h3>
               
@@ -50,7 +45,6 @@ export default function GuitarraDetalleContent({ guitarra }: { guitarra: any }) 
                   className="rounded-lg shadow-md w-full h-auto object-cover max-h-[600px] transition-all duration-300" 
                 />
                 
-                {/* Flechas de navegación (solo si hay más de una foto) */}
                 {todasLasFotos.length > 1 && (
                   <>
                     <button 
@@ -69,7 +63,6 @@ export default function GuitarraDetalleContent({ guitarra }: { guitarra: any }) 
                 )}
               </div>
 
-              {/* Miniaturas (Thumbnails) */}
               {todasLasFotos.length > 1 && (
                 <div className="flex gap-2 mt-4 overflow-x-auto pb-2 scrollbar-thin">
                   {todasLasFotos.map((foto, idx) => (
@@ -90,7 +83,6 @@ export default function GuitarraDetalleContent({ guitarra }: { guitarra: any }) 
 
           <div className="lg:flex-1 lg:sticky lg:top-24 lg:self-start">
             
-            {/* Tarjeta de Especificaciones (Tu diseño original) */}
             <div className="bg-gray-800 rounded-xl p-6 shadow-lg opacity-0 animate-fadeInUp delay-200">
               <div className="hidden lg:block mb-6">
                 <h1 className="text-3xl font-bold mb-3">{guitarra.nombre}</h1>

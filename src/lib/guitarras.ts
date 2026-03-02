@@ -1,6 +1,5 @@
-import pool from './db'; // Tu archivo donde exportás el pool
+import pool from './db'; 
 
-// 1. OBTENER TODOS (Para la tabla)
 export async function getGuitarsAdmin() {
   const res = await pool.query(`
     SELECT g.id, g.nombre, g.precio, g.disponible, g.tipo, g.imagen_url, e.detalle 
@@ -11,7 +10,6 @@ export async function getGuitarsAdmin() {
   return res.rows;
 }
 
-// 2. OBTENER UNO (Para editar)
 export async function getGuitarById(id: string) {
   const res = await pool.query(`
     SELECT g.*, e.cuerpo, e.tapa, e.mastil, e.tastiera, e.inlay, e.clavijas, e.puente, e.mics, e.trastes, e.escala, e.circuito, e.detalle, e.fotos
@@ -22,7 +20,7 @@ export async function getGuitarById(id: string) {
   return res.rows[0] || null;
 }
 
-// 3. GUARDAR O ACTUALIZAR (La función maestra)
+
 export async function saveInstrument(data: any) {
   const client = await pool.connect();
   try {
@@ -30,23 +28,19 @@ export async function saveInstrument(data: any) {
     let guitarraId = data.id;
 
     if (guitarraId) {
-      // --- 1. ACTUALIZAR TABLA PRINCIPAL ---
       await client.query(
         `UPDATE guitarras SET nombre=$1, descripcion=$2, precio=$3, imagen_url=$4, disponible=$5, tipo=$6, serie=$7, orden=$8 WHERE id=$9`,
         [data.nombre, data.descripcion || '', data.precio || 0, data.imagen_url || '', data.disponible, data.tipo || 'guitarra', data.serie || null, data.orden || null, guitarraId]
       );
       
-      // --- 2. VERIFICAR SI EXISTEN LAS ESPECIFICACIONES ---
       const checkSpecs = await client.query('SELECT id FROM especificaciones_guitarra WHERE guitarra_id = $1', [guitarraId]);
       
       if (checkSpecs.rows.length > 0) {
-        // Si existen, hacemos un UPDATE normal
         await client.query(
           `UPDATE especificaciones_guitarra SET cuerpo=$1, tapa=$2, mastil=$3, tastiera=$4, inlay=$5, clavijas=$6, puente=$7, mics=$8, trastes=$9, escala=$10, circuito=$11, detalle=$12, fotos=$13 WHERE guitarra_id=$14`,
           [data.cuerpo, data.tapa, data.mastil, data.tastiera, data.inlay, data.clavijas, data.puente, data.mics, data.trastes, data.escala, data.circuito, data.detalle, data.fotos || [], guitarraId]
         );
       } else {
-        // Si no existen (porque se guardó mal antes), hacemos un INSERT para enlazarla
         await client.query(
           `INSERT INTO especificaciones_guitarra (guitarra_id, cuerpo, tapa, mastil, tastiera, inlay, clavijas, puente, mics, trastes, escala, circuito, detalle, fotos) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`,
           [guitarraId, data.cuerpo, data.tapa, data.mastil, data.tastiera, data.inlay, data.clavijas, data.puente, data.mics, data.trastes, data.escala, data.circuito, data.detalle, data.fotos || []]
@@ -54,7 +48,6 @@ export async function saveInstrument(data: any) {
       }
 
     } else {
-      // --- CREAR UN INSTRUMENTO 100% NUEVO ---
       const resG = await client.query(
         `INSERT INTO guitarras (nombre, descripcion, precio, imagen_url, disponible, tipo, serie, orden) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`,
         [data.nombre, data.descripcion || '', data.precio || 0, data.imagen_url || '', data.disponible ?? true, data.tipo || 'guitarra', data.serie || null, data.orden || null]
@@ -76,12 +69,10 @@ export async function saveInstrument(data: any) {
   }
 }
 
-// 4. BORRAR
 export async function deleteInstrument(id: number) {
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
-    // Borramos primero las specs por la llave foránea
     await client.query('DELETE FROM especificaciones_guitarra WHERE guitarra_id = $1', [id]);
     await client.query('DELETE FROM guitarras WHERE id = $1', [id]);
     await client.query('COMMIT');
@@ -96,7 +87,6 @@ export async function deleteInstrument(id: number) {
 export async function toggleStock(id: number, estadoActual: boolean) {
   const client = await pool.connect();
   try {
-    // Si era true lo pasa a false, y viceversa (!estadoActual)
     await client.query('UPDATE guitarras SET disponible = $1 WHERE id = $2', [!estadoActual, id]);
   } finally {
     client.release();

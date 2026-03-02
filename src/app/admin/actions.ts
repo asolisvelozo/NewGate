@@ -8,7 +8,6 @@ export async function actionSave(formData: any) {
   await saveInstrument(formData);
   revalidatePath('/admin');
   revalidatePath('/tienda');
-  // BORRAMOS EL redirect('/admin') DE ACÁ
 }
 
 export async function actionDelete(id: number) {
@@ -27,14 +26,13 @@ export async function loginAction(formData: FormData) {
   const user = formData.get('user');
   const pass = formData.get('pass');
 
-  // Estos valores los sacamos de las Variables de Entorno (.env)
   if (user === process.env.ADMIN_USER && pass === process.env.ADMIN_PASS) {
     const cookieStore = await cookies();
     
     cookieStore.set('admin_session', 'true', {
-      httpOnly: true, // Bloquea acceso desde JS del navegador por seguridad
+      httpOnly: true, 
       secure: process.env.NODE_ENV === 'production', 
-      maxAge: 60 * 60 * 24, // Dura 24 horas
+      maxAge: 60 * 60 * 24, 
       path: '/',
     });
     

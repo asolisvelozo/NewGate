@@ -7,13 +7,18 @@ export default async function Shop() {
 
   return (
     <Container>
-      <div className="text-center pt-20">
-        <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white tracking-wider mb-8 opacity-0 animate-fadeInUp delay-200">
-          Guitarras
-        </h1>
+
+      <div className="flex justify-center pt-4 -mb-12 relative z-10"> 
+        
+        <img 
+          src="/guitars.PNG" 
+          alt="Guitarras" 
+          className="h-40 sm:h-56 md:h-80 lg:h-96 object-contain opacity-0 animate-fadeInUp delay-200"
+        />
+        
       </div>
 
-      <div className="flex justify-center opacity-0 animate-fadeInUp delay-1000">
+      <div className="flex justify-center opacity-0 animate-fadeInUp delay-1000 relative z-20">
         <GuitarCarousel initialGuitars={guitars} />
       </div>
     </Container>

@@ -18,7 +18,7 @@ export default function LoginPage() {
 
     if (res.success) {
       router.push('/admin');
-      router.refresh(); // Crucial para que el Middleware se entere del cambio
+      router.refresh();
     } else {
       setError(res.message || 'Error al iniciar sesión');
       setLoading(false);

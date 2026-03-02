@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google"; // Importamos Inter
+import { Inter } from "next/font/google"; 
 import "./globals.css";
 import { ReactNode } from "react";
 import { Navbar } from "@/components/NavBar";
 import Footer from "@/components/Footer";
 
-// Configuramos Inter
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",

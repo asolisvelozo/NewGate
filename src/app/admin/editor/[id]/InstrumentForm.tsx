@@ -1,10 +1,10 @@
 'use client'
 import { useState } from 'react';
 import { actionSave } from '@/app/admin/actions';
-import { useRouter } from 'next/navigation'; // <-- Agregamos el router
+import { useRouter } from 'next/navigation'; 
 
 export default function InstrumentForm({ initialData = null }: { initialData: any }) {
-  const router = useRouter(); // <-- Inicializamos el router
+  const router = useRouter(); 
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     id: initialData?.id || null,
@@ -16,7 +16,6 @@ export default function InstrumentForm({ initialData = null }: { initialData: an
     tipo: initialData?.tipo || 'guitarra',
     serie: initialData?.serie || '',
     orden: initialData?.orden || '',
-    // Specs
     cuerpo: initialData?.cuerpo || '',
     tapa: initialData?.tapa || '',
     mastil: initialData?.mastil || '',
@@ -28,7 +27,7 @@ export default function InstrumentForm({ initialData = null }: { initialData: an
     trastes: initialData?.trastes || '',
     escala: initialData?.escala || '',
     circuito: initialData?.circuito || '',
-    detalle: initialData?.detalle || '', // La pintura
+    detalle: initialData?.detalle || '', 
   });
 
   const [fotos, setFotos] = useState<string[]>(initialData?.fotos || []);
@@ -45,18 +44,16 @@ export default function InstrumentForm({ initialData = null }: { initialData: an
     
     try {
       await actionSave(finalData);
-      // Redirigimos desde acá cuando la acción fue exitosa
       router.push('/admin'); 
     } catch (error) {
       alert("Error al guardar en la BD. Revisa la consola.");
-      console.error(error); // Te dejo esto para que veas el error real si falla
+      console.error(error); 
       setLoading(false);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* SECCIÓN PRINCIPAL */}
       <div className="bg-zinc-900 p-6 rounded-lg border border-zinc-800">
         <h2 className="text-lg text-blue-400 mb-4">Datos Principales</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -77,7 +74,6 @@ export default function InstrumentForm({ initialData = null }: { initialData: an
         </div>
       </div>
 
-      {/* SECCIÓN ESPECIFICACIONES */}
       <div className="bg-zinc-900 p-6 rounded-lg border border-zinc-800">
         <h2 className="text-lg text-blue-400 mb-4">Especificaciones (Ficha Técnica)</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -96,7 +92,6 @@ export default function InstrumentForm({ initialData = null }: { initialData: an
         </div>
       </div>
 
-      {/* SECCIÓN GALERÍA */}
       <div className="bg-zinc-900 p-6 rounded-lg border border-zinc-800">
         <h2 className="text-lg text-blue-400 mb-4">Galería Extra (URLs)</h2>
         {fotos.map((f, i) => (
@@ -115,7 +110,6 @@ export default function InstrumentForm({ initialData = null }: { initialData: an
   );
 }
 
-// Componente helper para no repetir tanto HTML
 function Input({ label, name, value, onChange, type = "text", required = false }: any) {
   return (
     <div>
