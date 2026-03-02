@@ -36,7 +36,7 @@ export default function HalfLightSeries() {
               <br /><br />
               Tomando Half-Light como inspiración —tanto su sentido poético como el valor personal que tiene para mí— busqué una manera de plasmar ese concepto en un instrumento único.
               <br /><br />
-              Así nació <span className="text-white font-medium italic">"The Half-Light Series"</span>.
+              Así nació <span className="text-white font-medium italic">The Half-Light Series</span>.
             </p>
           </div>
           <div className="flex flex-col md:flex-row rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
@@ -58,7 +58,7 @@ export default function HalfLightSeries() {
               <p>La idea nació con aquella guitarra para Steven, inspirada en mi canción favorita. Busqué la belleza y el equilibrio en el contraste absoluto, construyendo algo sobrio pero a la vez llamativo, del cual nació este instrumento que tanta felicidad me dió y me da.</p>
               <p>Ese camino dio origen a una nueva filosofía de construcción: usar las maderas en su coloración natural, sin tintas, buscando un contraste absoluto entre ellas, así como también buscando equilibrio y belleza en dicho contraste.</p>
               <p>The Half-Light Series representa precisamente eso — la búsqueda del equilibrio, la armonía y la belleza que habitan entre la luz y la sombra.</p>
-              <p>Esta Genesis Singlecut “Half-Light” fue la primera en materializar esa idea y marcar el inicio de esta nueva etapa creativa.</p>
+              <p>Esta Genesis Singlecut Half-Light fue la primera en materializar esa idea y marcar el inicio de esta nueva etapa creativa.</p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row rounded-3xl overflow-hidden border border-white/10 shadow-2xl">

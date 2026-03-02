@@ -33,7 +33,7 @@ export default function Nosotros() {
           <div className="w-full text-center lg:text-left space-y-8 animate-fadeInUp" style={{ animationDelay: '500ms', animationFillMode: 'both' }}>
             
             <p className="text-gray-200 text-xl md:text-2xl font-medium leading-relaxed italic tracking-wide text-balance drop-shadow-sm">
-              "NewGate Guitars nace de una búsqueda personal que con el tiempo trascendió lo individual."
+              NewGate Guitars nace de una búsqueda personal que con el tiempo trascendió lo individual.
             </p>
             
             <div className="space-y-6 text-gray-300 text-lg leading-relaxed font-light">
