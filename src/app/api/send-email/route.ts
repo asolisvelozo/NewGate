@@ -2,8 +2,7 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
 // Instancia de Resend usando la API Key de tu archivo .env.local
-const resend = new Resend(process.env.RESEND_API_KEY);
-
+const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy_key_para_vercel');
 // El email a donde querés que lleguen las consultas de las guitarras
 const toEmail = 'lausolisvelozo@gmail.com'; // <-- ACORDATE DE CAMBIAR ESTO
 
