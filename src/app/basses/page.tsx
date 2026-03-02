@@ -1,15 +1,15 @@
 import { Container } from "@/components/container";
 import GuitarCarousel from "@/components/GuitarCarousel";
-import { getGuitars } from "@/lib/db";
+import { getBajos } from "@/lib/db";
 
 export default async function Shop() {
-  const guitars = await getGuitars();
+  const guitars = await getBajos();
 
   return (
     <Container>
       <div className="text-center pt-20">
         <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white tracking-wider mb-8 opacity-0 animate-fadeInUp delay-200">
-          Tienda
+          Guitarras
         </h1>
       </div>
 

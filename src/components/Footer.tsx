@@ -29,7 +29,7 @@ export default function Footer() {
           </a>
 
           <a
-            href="mailto:contacto@newgate.com"
+            href="/contact"
             className="hover:text-green-400 transition-colors"
           >
             <MdEmail />

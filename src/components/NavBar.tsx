@@ -12,18 +12,12 @@ export function Navbar() {
     {
       name: "GUITARRAS",
       href: "/guitars",
-      submenu: [
-        { name: "Modelos Standard", href: "/guitars/standard" },
-        { name: "Custom Shop", href: "/guitars/custom" },
-      ],
+  
     },
     {
       name: "BAJOS",
       href: "/basses",
-      submenu: [
-        { name: "Jazz Type", href: "/basses/jazz" },
-        { name: "Precision Type", href: "/basses/precision" },
-      ],
+
     },
     {
       name: "SERIES",

@@ -1,18 +1,32 @@
 'use client';
-import { Mail } from 'lucide-react';
-import Link from 'next/link'; // Importamos Link de Next.js
+import { useState } from 'react';
+import { Mail, ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 
 export default function GuitarraDetalleContent({ guitarra }: { guitarra: any }) {
+  // 1. Unificamos la foto principal con el array de fotos que ahora sí viene del LIB
+  const fotosExtra = Array.isArray(guitarra.fotos) ? guitarra.fotos : [];
+  
+  // Limpiamos cualquier valor nulo o vacío para que no rompa el carrusel
+  const todasLasFotos = [guitarra.imagen_url, ...fotosExtra].filter(
+    (f) => f && f !== 'null' && f !== '[null]' && f.trim() !== ''
+  );
+
+  // 2. Estado para manejar la foto que se muestra
+  const [index, setIndex] = useState(0);
+
+  const anterior = () => setIndex(index === 0 ? todasLasFotos.length - 1 : index - 1);
+  const siguiente = () => setIndex(index === todasLasFotos.length - 1 ? 0 : index + 1);
+
   return (
     <div className="min-h-screen text-white pt-16 overflow-hidden">
       <div className="container mx-auto px-4 py-8">
         
-        {/* Cabecera Móvil */}
+        {/* Cabecera Móvil (Tu diseño original) */}
         <div className="lg:hidden mb-6 opacity-0 animate-fadeInUp delay-200">
           <h1 className="text-2xl font-bold mb-2">{guitarra.nombre}</h1>
           <div className="flex items-center justify-between mb-4">
             <p className="text-xl text-gray-300">${guitarra.precio?.toLocaleString()}</p>
-            {/* Cambiamos el button por un Link */}
             <Link 
               href="/contact" 
               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition flex items-center gap-2"
@@ -25,39 +39,68 @@ export default function GuitarraDetalleContent({ guitarra }: { guitarra: any }) 
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="lg:flex-1 space-y-6">
             
-            {/* Foto Principal */}
+            {/* VISTA PRINCIPAL CON CAROUSEL */}
             <div className="bg-gray-800 rounded-xl p-4 shadow-lg opacity-0 animate-fadeInUp">
-              <h3 className="text-lg font-semibold mb-4 text-gray-300">Vista Principal</h3>
-              <img 
-                src={guitarra.imagen_url} 
-                alt={guitarra.nombre} 
-                decoding="async"
-                className="rounded-lg shadow-md w-full h-auto" 
-              />
-            </div>
-
-            {/* Galería de Especificaciones */}
-            {guitarra.especificaciones_guitarra?.length > 0 && (
-              <div className="bg-gray-800 rounded-xl p-4 shadow-lg opacity-0 animate-fadeInUp delay-500">
-                <h3 className="text-lg font-semibold mb-4 text-gray-300">Galería de Especificaciones</h3>
+              <h3 className="text-lg font-semibold mb-4 text-gray-300">Galería del Instrumento</h3>
+              
+              <div className="relative group rounded-lg overflow-hidden flex items-center justify-center bg-black/20">
+                <img 
+                  src={todasLasFotos[index]} 
+                  alt={`${guitarra.nombre} - vista ${index + 1}`} 
+                  className="rounded-lg shadow-md w-full h-auto object-cover max-h-[600px] transition-all duration-300" 
+                />
+                
+                {/* Flechas de navegación (solo si hay más de una foto) */}
+                {todasLasFotos.length > 1 && (
+                  <>
+                    <button 
+                      onClick={anterior} 
+                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all"
+                    >
+                      <ChevronLeft size={24} />
+                    </button>
+                    <button 
+                      onClick={siguiente} 
+                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all"
+                    >
+                      <ChevronRight size={24} />
+                    </button>
+                  </>
+                )}
               </div>
-            )}
+
+              {/* Miniaturas (Thumbnails) */}
+              {todasLasFotos.length > 1 && (
+                <div className="flex gap-2 mt-4 overflow-x-auto pb-2 scrollbar-thin">
+                  {todasLasFotos.map((foto, idx) => (
+                    <button 
+                      key={idx}
+                      onClick={() => setIndex(idx)}
+                      className={`w-20 h-20 flex-shrink-0 rounded-md overflow-hidden border-2 transition-all ${
+                        index === idx ? 'border-blue-500 opacity-100' : 'border-transparent opacity-60 hover:opacity-100'
+                      }`}
+                    >
+                      <img src={foto} alt="miniatura" className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="lg:flex-1 lg:sticky lg:top-24 lg:self-start">
             
-            {/* Tarjeta de Specs (y Título en Desktop) */}
+            {/* Tarjeta de Especificaciones (Tu diseño original) */}
             <div className="bg-gray-800 rounded-xl p-6 shadow-lg opacity-0 animate-fadeInUp delay-200">
               <div className="hidden lg:block mb-6">
                 <h1 className="text-3xl font-bold mb-3">{guitarra.nombre}</h1>
                 <div className="flex items-center justify-between">
                   <p className="text-2xl text-gray-300">${guitarra.precio?.toLocaleString()}</p>
-                  {/* Cambiamos el button por un Link */}
                   <Link 
                     href="/contact" 
                     className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition flex items-center gap-2"
                   >
-                    <Mail size={20} /> Contact us
+                    <Mail size={20} /> Contactanos
                   </Link>
                 </div>
               </div>
@@ -92,7 +135,7 @@ function SpecRow({ label, value }: { label: string, value: string }) {
   return (
     <div className="flex flex-col sm:flex-row sm:items-center justify-between py-2 border-b border-gray-700">
       <span className="font-semibold text-gray-300">{label}</span>
-      <span className="text-gray-200">{value || 'N/A'}</span>
+      <span className="text-gray-200 text-right">{value || 'N/A'}</span>
     </div>
   );
 }

@@ -62,7 +62,7 @@ export default function GuitarCarousel({ initialGuitars }: { initialGuitars: Gui
                   href={`/seemore/${guitar.id}`}
                   className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition"
                 >
-                  See more
+                  Ver más
                 </Link>
               </div>
             </div>
