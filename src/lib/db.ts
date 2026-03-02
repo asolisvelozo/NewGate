@@ -1,4 +1,5 @@
 import { Pool } from 'pg';
+import { unstable_noStore as noStore } from 'next/cache';
 
 const pool = new Pool(
   process.env.NODE_ENV === 'production'
@@ -20,6 +21,7 @@ const pool = new Pool(
 export default pool;
 
 export async function getGuitars() {
+  noStore(); // Fuerza a que Next.js 15 busque datos frescos
   try {
     const result = await pool.query('SELECT * FROM guitarras WHERE disponible=true');
     return result.rows; 
@@ -30,6 +32,7 @@ export async function getGuitars() {
 }
 
 export async function getGuitarsOK() {
+  noStore(); // Evita que aparezcan instrumentos borrados
   try {
     const result = await pool.query("SELECT * FROM guitarras WHERE tipo='guitarra'");
     return result.rows; 
@@ -40,6 +43,7 @@ export async function getGuitarsOK() {
 }
 
 export async function getBajos() {
+  noStore();
   try {
     const result = await pool.query("SELECT * FROM guitarras WHERE tipo='bajo'");
     return result.rows; 
@@ -50,6 +54,7 @@ export async function getBajos() {
 }
 
 export async function getSpecifications(id: string) {
+  noStore();
   try {
     const result = await pool.query(
       `

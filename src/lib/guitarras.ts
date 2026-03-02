@@ -1,6 +1,13 @@
 import pool from './db'; 
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, unstable_noStore as noStore } from 'next/cache';
+
+/* ==========================================
+   FUNCIONES DE LECTURA (ADMIN)
+   Usamos noStore() para que el panel siempre muestre el stock real.
+   ========================================== */
+
 export async function getGuitarsAdmin() {
+  noStore();
   const res = await pool.query(`
     SELECT g.id, g.nombre, g.precio, g.disponible, g.tipo, g.imagen_url, e.detalle 
     FROM guitarras g
@@ -11,6 +18,7 @@ export async function getGuitarsAdmin() {
 }
 
 export async function getGuitarById(id: string) {
+  noStore();
   const res = await pool.query(`
     SELECT g.*, e.cuerpo, e.tapa, e.mastil, e.tastiera, e.inlay, e.clavijas, e.puente, e.mics, e.trastes, e.escala, e.circuito, e.detalle, e.fotos
     FROM guitarras g
@@ -19,6 +27,7 @@ export async function getGuitarById(id: string) {
   `, [id]);
   return res.rows[0] || null;
 }
+
 
 
 export async function saveInstrument(data: any) {
@@ -46,7 +55,6 @@ export async function saveInstrument(data: any) {
           [guitarraId, data.cuerpo, data.tapa, data.mastil, data.tastiera, data.inlay, data.clavijas, data.puente, data.mics, data.trastes, data.escala, data.circuito, data.detalle, data.fotos || []]
         );
       }
-
     } else {
       const resG = await client.query(
         `INSERT INTO guitarras (nombre, descripcion, precio, imagen_url, disponible, tipo, serie, orden) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`,
@@ -61,6 +69,13 @@ export async function saveInstrument(data: any) {
     }
     
     await client.query('COMMIT');
+
+    // Avisamos a Next.js que los datos cambiaron para que actualice la tienda
+    revalidatePath('/tienda');
+    revalidatePath('/admin');
+    revalidatePath('/bajos');
+    revalidatePath(`/seemore/${guitarraId}`); // Actualiza la página de detalle
+
   } catch (e) {
     await client.query('ROLLBACK');
     throw e;
@@ -83,14 +98,22 @@ export async function deleteInstrument(id: number) {
     client.release();
   }
 
+  // Limpiamos el rastro de la guitarra borrada
   revalidatePath('/tienda');
+  revalidatePath('/admin');
+  revalidatePath('/bajos');
 }
 
 export async function toggleStock(id: number, estadoActual: boolean) {
   const client = await pool.connect();
   try {
     await client.query('UPDATE guitarras SET disponible = $1 WHERE id = $2', [!estadoActual, id]);
+    
+    // Forzamos la actualización de la visibilidad en la tienda
+    revalidatePath('/tienda');
+    revalidatePath('/admin');
+    revalidatePath('/bajos');
   } finally {
     client.release();
-  }
+  } 
 }
