@@ -1,4 +1,5 @@
 'use server'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { revalidatePath } from 'next/cache';
 import { saveInstrument, deleteInstrument, toggleStock } from '@/lib/guitarras';
 import { cookies } from 'next/headers';

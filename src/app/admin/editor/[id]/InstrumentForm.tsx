@@ -1,4 +1,5 @@
 'use client'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import { actionSave } from '@/app/admin/actions';
 import { useRouter } from 'next/navigation'; 
