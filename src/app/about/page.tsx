@@ -1,5 +1,4 @@
 'use client'
-/* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import Image from "next/image";
 
@@ -8,7 +7,7 @@ export default function Nosotros() {
     <div className="pt-4 md:pt-8 pb-32 px-4 overflow-hidden">
       <div className="container mx-auto max-w-6xl relative z-10">
         
-        <div className="flex flex-col items-center justify-center -mt-[60px] md:-mt-[120px] -mb-[40px] md:-mb-[80px] animate-fadeInUp">
+        <div className="flex flex-col items-center justify-center -mt-[60px] md:-mt-[120px] -mb-[20px] md:-mb-[40px] animate-fadeInUp">
           <Image 
             src="/aboutus.PNG" 
             alt="About Us"
@@ -17,7 +16,7 @@ export default function Nosotros() {
             className="w-[300px] sm:w-[500px] md:w-[700px] lg:w-[900px] h-auto object-contain drop-shadow-md scale-110" 
             priority 
           />
-          <div className="w-24 h-px bg-gradient-to-r from-transparent via-blue-600 to-transparent shadow-[0_0_15px_rgba(37,99,235,0.8)] -mt-[10px] md:-mt-[30px] mb-8 md:mb-12 relative z-20"></div>
+          <div className="w-24 h-px bg-gradient-to-r from-transparent via-blue-600 to-transparent shadow-[0_0_15px_rgba(37,99,235,0.8)] -mt-[50px] md:-mt-[100px] mb-8 md:mb-12 relative z-20"></div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start relative z-20">
