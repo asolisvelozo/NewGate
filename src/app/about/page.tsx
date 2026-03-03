@@ -5,18 +5,22 @@ import Image from "next/image";
 
 export default function Nosotros() {
   return (
-    <div className="min-h-screen pt-24 pb-32 px-4 overflow-hidden flex items-center">
+    <div className="pt-4 md:pt-8 pb-32 px-4 overflow-hidden">
       <div className="container mx-auto max-w-6xl relative z-10">
         
-        {/* TÍTULO SECCIÓN */}
-        <div className="text-center mb-16 md:mb-24 space-y-4 animate-fadeInUp">
-          <h1 className="text-4xl md:text-5xl font-light tracking-[0.3em] text-white uppercase text-center drop-shadow-md">
-            Nosotros
-          </h1>
-          <div className="w-24 h-px bg-gradient-to-r from-transparent via-blue-600 to-transparent mx-auto shadow-[0_0_15px_rgba(37,99,235,0.8)]"></div>
+        <div className="flex flex-col items-center justify-center -mt-[60px] md:-mt-[120px] -mb-[40px] md:-mb-[80px] animate-fadeInUp">
+          <Image 
+            src="/aboutus.PNG" 
+            alt="About Us"
+            width={1000} 
+            height={300} 
+            className="w-[300px] sm:w-[500px] md:w-[700px] lg:w-[900px] h-auto object-contain drop-shadow-md scale-110" 
+            priority 
+          />
+          <div className="w-24 h-px bg-gradient-to-r from-transparent via-blue-600 to-transparent shadow-[0_0_15px_rgba(37,99,235,0.8)] -mt-[10px] md:-mt-[30px] mb-8 md:mb-12 relative z-20"></div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start relative z-20">
           
           <div className="w-full relative z-10 animate-fadeInUp" style={{ animationDelay: '200ms', animationFillMode: 'both' }}>
             <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden border border-white/10 shadow-2xl group">
