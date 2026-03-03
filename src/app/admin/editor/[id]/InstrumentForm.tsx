@@ -59,7 +59,7 @@ export default function InstrumentForm({ initialData = null }: { initialData: an
         <h2 className="text-lg text-blue-400 mb-4">Datos Principales</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input label="Nombre" name="nombre" value={formData.nombre} onChange={handleChange} required />
-          <Input label="Precio (USD)" name="precio" type="number" value={formData.precio} onChange={handleChange} required />
+          <Input label="Precio (USD)" name="precio" type="number" value={formData.precio} onChange={handleChange} />
           <Input label="Tipo" name="tipo" value={formData.tipo} onChange={handleChange} />
           <Input label="URL Foto Principal" name="imagen_url" value={formData.imagen_url} onChange={handleChange} />
           <Input label="Serie" name="serie" value={formData.serie} onChange={handleChange} />

@@ -36,10 +36,24 @@ export async function saveInstrument(data: any) {
     await client.query('BEGIN');
     let guitarraId = data.id;
 
+    // Lógica para que el precio sea opcional:
+    // Si data.precio es una cadena vacía (''), null o undefined, mandamos null a Postgres.
+    const precioFinal = (data.precio === '' || data.precio == null) ? null : data.precio;
+
     if (guitarraId) {
       await client.query(
         `UPDATE guitarras SET nombre=$1, descripcion=$2, precio=$3, imagen_url=$4, disponible=$5, tipo=$6, serie=$7, orden=$8 WHERE id=$9`,
-        [data.nombre, data.descripcion || '', data.precio || 0, data.imagen_url || '', data.disponible, data.tipo || 'guitarra', data.serie || null, data.orden || null, guitarraId]
+        [
+          data.nombre, 
+          data.descripcion || '', 
+          precioFinal, // <--- Modificado aquí
+          data.imagen_url || '', 
+          data.disponible, 
+          data.tipo || 'guitarra', 
+          data.serie || null, 
+          data.orden || null, 
+          guitarraId
+        ]
       );
       
       const checkSpecs = await client.query('SELECT id FROM especificaciones_guitarra WHERE guitarra_id = $1', [guitarraId]);
@@ -58,7 +72,16 @@ export async function saveInstrument(data: any) {
     } else {
       const resG = await client.query(
         `INSERT INTO guitarras (nombre, descripcion, precio, imagen_url, disponible, tipo, serie, orden) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`,
-        [data.nombre, data.descripcion || '', data.precio || 0, data.imagen_url || '', data.disponible ?? true, data.tipo || 'guitarra', data.serie || null, data.orden || null]
+        [
+          data.nombre, 
+          data.descripcion || '', 
+          precioFinal, // <--- Modificado aquí
+          data.imagen_url || '', 
+          data.disponible ?? true, 
+          data.tipo || 'guitarra', 
+          data.serie || null, 
+          data.orden || null
+        ]
       );
       guitarraId = resG.rows[0].id;
       
@@ -70,11 +93,10 @@ export async function saveInstrument(data: any) {
     
     await client.query('COMMIT');
 
-    // Avisamos a Next.js que los datos cambiaron para que actualice la tienda
     revalidatePath('/tienda');
     revalidatePath('/admin');
     revalidatePath('/bajos');
-    revalidatePath(`/seemore/${guitarraId}`); // Actualiza la página de detalle
+    revalidatePath(`/seemore/${guitarraId}`);
 
   } catch (e) {
     await client.query('ROLLBACK');
@@ -83,7 +105,6 @@ export async function saveInstrument(data: any) {
     client.release();
   }
 }
-
 export async function deleteInstrument(id: number) {
   const client = await pool.connect();
   try {
