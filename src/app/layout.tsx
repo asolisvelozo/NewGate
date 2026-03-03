@@ -4,6 +4,7 @@ import "./globals.css";
 import { ReactNode } from "react";
 import { Navbar } from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import ProteccionImagenes from "@/components/ProteccionImagenes";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,6 +23,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         className={`${inter.className} antialiased min-h-screen flex flex-col text-white bg-cover bg-center bg-fixed`}
         style={{ backgroundImage: "url('/wood.jpg')" }}
       >
+        <ProteccionImagenes />
+
         <Navbar />
 
         <main className="flex-grow">{children}</main>

@@ -19,3 +19,11 @@
 .delay-200 { animation-delay: 0.2s; }
 .delay-500 { animation-delay: 0.5s; }
 .delay-1000 { animation-delay: 1s; }
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-select: none;
+}

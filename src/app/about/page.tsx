@@ -27,6 +27,7 @@ export default function Nosotros() {
                 src="/IMG_1799.JPEG" 
                 alt="JOAQUIN AZRIEL - Luthier de NewGate Guitars"
                 fill
+                onContextMenu={(e) => e.preventDefault()}
                 className="object-cover object-center group-hover:scale-105 transition-transform duration-1000"
                 priority
               />
