@@ -22,7 +22,9 @@ export default function GuitarraDetalleContent({ guitarra }: { guitarra: any }) 
         <div className="lg:hidden mb-6 opacity-0 animate-fadeInUp delay-200">
           <h1 className="text-2xl font-bold mb-2">{guitarra.nombre}</h1>
           <div className="flex items-center justify-between mb-4">
-            <p className="text-xl text-gray-300">${guitarra.precio?.toLocaleString()}</p>
+            <p className="text-xl text-blue-400 font-mono">
+              {guitarra.precio && guitarra.precio > 0 ? `$${guitarra.precio.toLocaleString()}` : 'Consultar precio'}
+            </p>
             <Link 
               href="/contact" 
               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition flex items-center gap-2"
@@ -38,11 +40,11 @@ export default function GuitarraDetalleContent({ guitarra }: { guitarra: any }) 
             <div className="bg-gray-800 rounded-xl p-4 shadow-lg opacity-0 animate-fadeInUp">
               <h3 className="text-lg font-semibold mb-4 text-gray-300">Galería del Instrumento</h3>
               
-              <div className="relative group rounded-lg overflow-hidden flex items-center justify-center bg-black/20">
+              <div className="relative group rounded-lg overflow-hidden flex items-center justify-center bg-black/40">
                 <img 
                   src={todasLasFotos[index]} 
                   alt={`${guitarra.nombre} - vista ${index + 1}`} 
-                  className="rounded-lg shadow-md w-full h-auto object-cover max-h-[600px] transition-all duration-300" 
+                  className="w-full h-[400px] lg:h-[600px] object-contain transition-all duration-300" 
                 />
                 
                 {todasLasFotos.length > 1 && (
@@ -87,7 +89,9 @@ export default function GuitarraDetalleContent({ guitarra }: { guitarra: any }) 
               <div className="hidden lg:block mb-6">
                 <h1 className="text-3xl font-bold mb-3">{guitarra.nombre}</h1>
                 <div className="flex items-center justify-between">
-                  <p className="text-2xl text-gray-300">${guitarra.precio?.toLocaleString()}</p>
+                  <p className="text-2xl text-blue-400 font-mono">
+                    {guitarra.precio && guitarra.precio > 0 ? `$${guitarra.precio.toLocaleString()}` : 'Consultar precio'}
+                  </p>
                   <Link 
                     href="/contact" 
                     className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition flex items-center gap-2"
