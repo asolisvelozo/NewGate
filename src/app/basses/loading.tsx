@@ -16,7 +16,7 @@ export default function Loading() {
             NewGate
           </span>
           <span className="text-gray-400 text-xs tracking-[0.3em] uppercase animate-pulse">
-            Afinando el stock...
+            Checking stock...
           </span>
         </div>
 
